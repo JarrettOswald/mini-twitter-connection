@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>ru.korepanov</groupId>
+        <artifactId>mini-twitter-connection</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mini-twitter-db</artifactId>
+    <packaging>jar</packaging>
+
+    <name>mini-twitter-db</name>
+
+    <properties>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>11</java.version>
+        <datasource.driverClassName>org.postgresql.Driver</datasource.driverClassName>
+        <datasource.url>jdbc:postgresql://localhost:5432/postgres</datasource.url>
+        <datasource.username>postgres</datasource.username>
+        <datasource.password>postgres</datasource.password>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <changeLogFile>src/main/resources/liquibase/master.xml</changeLogFile>
+                    <driver>${datasource.driverClassName}</driver>
+                    <url>${datasource.url}</url>
+                    <username>${datasource.username}</username>
+                    <password>${datasource.password}</password>
+                    <changelogSchemaName>liquibase</changelogSchemaName>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>2.3.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+

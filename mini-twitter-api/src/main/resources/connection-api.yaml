@@ -1,0 +1,116 @@
+openapi: 3.0.0
+
+info:
+  version: 0.0.1
+  title: Connections
+  description: The posts service
+servers:
+  - url: /connections/
+
+tags:
+  - name: Connections
+
+paths:
+
+  /users:
+    get:
+      summary: Find all users
+      tags:
+        - Connections
+      description: This is description
+      operationId: findAllUsers
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Find user by userId
+      tags:
+        - Connections
+      operationId: getUserByUserId
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+
+  /connections:
+    get:
+      summary: Get all connections
+      operationId: getConnections
+      tags:
+        - Connections
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+
+  /connections/{userId}:
+    get:
+      summary: Get connection by userId
+      operationId: getConnectionByUserName
+      tags:
+        - Connections
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - username
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+
+    Connection:
+      type: object
+      required:
+        - followed
+        - followed
+      properties:
+        follower:
+          type: integer
+          format: int64
+        followed:
+          type: integer
+          format: int64
