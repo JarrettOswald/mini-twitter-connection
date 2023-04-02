@@ -18,9 +18,9 @@
     <description>mini-twitter</description>
 
     <modules>
+        <module>mini-twitter-db</module>
         <module>mini-twitter-api</module>
         <module>mini-twitter-service</module>
-        <module>mini-twitter-db</module>
     </modules>
 
     <properties>
@@ -29,5 +29,29 @@
         <maven.compiler.target>17</maven.compiler.target>
         <kotlin.version>1.7.22</kotlin.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>develop</id>
+            <properties>
+                <db.url>jdbc:tc:postgresql:14:///testdb?TC_TMPFS=/testtmpfs:rw&amp;</db.url>
+                <db.username>postgres</db.username>
+                <db.password>postgres</db.password>
+                <db.driver>org.testcontainers.jdbc.ContainerDatabaseDriver</db.driver>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <db.url>jdbc:postgresql://localhost:5432/postgres</db.url>
+                <db.username>postgres</db.username>
+                <db.password>postgres</db.password>
+                <db.driver>org.postgresql.Driver</db.driver>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
