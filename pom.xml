@@ -34,7 +34,7 @@
         <profile>
             <id>develop</id>
             <properties>
-                <db.url>jdbc:tc:postgresql:14:///testdb?TC_TMPFS=/testtmpfs:rw&amp;</db.url>
+                <db.url>jdbc:tc:postgresql:14:///testdb?TC_TMPFS=/testtmpfs:rw&amp;TC_INITSCRIPT=file:${basedir}/src/main/resources/init_mysql.sql</db.url>
                 <db.username>postgres</db.username>
                 <db.password>postgres</db.password>
                 <db.driver>org.testcontainers.jdbc.ContainerDatabaseDriver</db.driver>
