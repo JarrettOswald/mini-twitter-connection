@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>mini-twitter-db</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>mini-twitter-db</name>
 
@@ -75,7 +75,7 @@
                 <version>3.8.1</version>
                 <executions>
                     <execution>
-                        <phase>process-resources</phase>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>update</goal>
                         </goals>
@@ -91,9 +91,9 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>2.3.0</version>
+                        <groupId>org.testcontainers</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${testcontainers.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -109,50 +109,50 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <executions>
-                    <execution>
-                        <id>java-generator</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <jdbc>
-                                <driver>
-                                    ${db.driver}
-                                </driver>
-                                <url>${db.url}</url>
-                                <user>${db.username}</user>
-                                <password>${db.password}</password>
-                            </jdbc>
-                            <generator>
-                                <database>
-                                    <inputSchema>public</inputSchema>
-                                </database>
-                                <generate>
-                                    <javaTimeTypes>true</javaTimeTypes>
-                                    <daos>true</daos>
-                                    <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
-                                </generate>
-                                <target>
-                                    <packageName>jooq</packageName>
-                                    <directory>target/generated-sources</directory>
-                                </target>
-                            </generator>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
-                        <version>4.13.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jooq</groupId>-->
+<!--                <artifactId>jooq-codegen-maven</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>java-generator</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <jdbc>-->
+<!--                                <driver>-->
+<!--                                    ${db.driver}-->
+<!--                                </driver>-->
+<!--                                <url>${db.url}</url>-->
+<!--                                <user>${db.username}</user>-->
+<!--                                <password>${db.password}</password>-->
+<!--                            </jdbc>-->
+<!--                            <generator>-->
+<!--                                <database>-->
+<!--                                    <inputSchema>public</inputSchema>-->
+<!--                                </database>-->
+<!--                                <generate>-->
+<!--                                    <javaTimeTypes>true</javaTimeTypes>-->
+<!--                                    <daos>true</daos>-->
+<!--                                    <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>-->
+<!--                                </generate>-->
+<!--                                <target>-->
+<!--                                    <packageName>jooq</packageName>-->
+<!--                                    <directory>target/generated-sources</directory>-->
+<!--                                </target>-->
+<!--                            </generator>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>junit</groupId>-->
+<!--                        <artifactId>junit</artifactId>-->
+<!--                        <version>4.13.1</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>
