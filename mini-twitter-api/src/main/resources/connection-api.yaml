@@ -95,11 +95,11 @@ components:
       type: object
       required:
         - name
-        - username
+        - surname
       properties:
         name:
           type: string
-        username:
+        surname:
           type: string
 
     Connection:
