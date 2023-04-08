@@ -18,7 +18,6 @@
     <description>mini-twitter</description>
 
     <modules>
-        <module>mini-twitter-db</module>
         <module>mini-twitter-api</module>
         <module>mini-twitter-service</module>
     </modules>
