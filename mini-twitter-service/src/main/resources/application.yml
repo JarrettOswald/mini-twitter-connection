@@ -4,3 +4,6 @@ spring:
     username: '@db.username@'
     password: '@db.password@'
     driver-class-name: '@db.driver@'
+  jpa:
+    hibernate:
+      ddl-auto: none

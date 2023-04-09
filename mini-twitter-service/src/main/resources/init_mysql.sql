@@ -1,13 +1,13 @@
 CREATE TABLE USERS
 (
-    id      int generated always as identity PRIMARY KEY,
-    name    varchar,
-    surname varchar
+    id      UUID PRIMARY KEY,
+    name    VARCHAR NOT NULL,
+    surname VARCHAR NOT NULL
 );
 
 CREATE TABLE CONNECTIONS
 (
-    id       int generated always as identity PRIMARY KEY,
-    follower integer,
-    followed integer
+    id       UUID PRIMARY KEY,
+    follower INTEGER NOT NULL,
+    followed INTEGER NOT NULL
 );
