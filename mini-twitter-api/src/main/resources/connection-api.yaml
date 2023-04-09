@@ -27,7 +27,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
+                  $ref: '#/components/schemas/UserRead'
 
   /users/{userId}:
     get:
@@ -40,15 +40,15 @@ paths:
           name: userId
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
       responses:
         "200":
           description: This means is ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserRead'
 
 
   /connections:
@@ -65,7 +65,26 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Connection'
+                  $ref: '#/components/schemas/ConnectionRead'
+    post:
+      summary: Add new connection
+      operationId: saveConnection
+      tags:
+        - Connections
+      requestBody:
+        required: true
+        description: Connections obj
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionWrite'
+      responses:
+        "200":
+          description: It's ok
+          content:
+            text/plain:
+              schema:
+                type: string
 
   /connections/{userId}:
     get:
@@ -78,8 +97,8 @@ paths:
           name: userId
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
       responses:
         "200":
           description: This means is ok
@@ -88,11 +107,25 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Connection'
+                  $ref: '#/components/schemas/ConnectionRead'
 components:
   schemas:
+    UserRead:
+      type: object
+      required:
+        - uuid
+        - name
+        - surname
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        surname:
+          type: string
 
-    User:
+    UserWrite:
       type: object
       required:
         - name
@@ -103,7 +136,22 @@ components:
         surname:
           type: string
 
-    Connection:
+    ConnectionRead:
+      type: object
+      required:
+        - uuid
+        - follower
+        - followed
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        follower:
+          type: integer
+        followed:
+          type: integer
+
+    ConnectionWrite:
       type: object
       required:
         - follower
@@ -111,7 +159,5 @@ components:
       properties:
         follower:
           type: integer
-          format: int64
         followed:
           type: integer
-          format: int64
