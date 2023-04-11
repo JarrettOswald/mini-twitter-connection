@@ -16,7 +16,7 @@ paths:
     get:
       summary: Find all users
       tags:
-        - Connections
+        - Users
       description: Find all users
       operationId: findAllUsers
       responses:
@@ -27,13 +27,34 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserRead'
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: add new user
+      description: add new user
+      tags:
+        - Users
+      operationId: addNewUser
+      requestBody:
+        required: true
+        description: User obj
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: It's ok
+          content:
+            text/plain:
+              schema:
+                type: string
+
 
   /users/{userId}:
     get:
       summary: Find user by userId
       tags:
-        - Connections
+        - Users
       operationId: getUserByUserId
       parameters:
         - in: path
@@ -41,15 +62,36 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
       responses:
         "200":
           description: This means is ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserRead'
-
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Edit user by userId
+      operationId: updateUserById
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: User obj
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
 
   /connections:
     get:
@@ -65,7 +107,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ConnectionRead'
+                  $ref: '#/components/schemas/Connection'
     post:
       summary: Add new connection
       operationId: saveConnection
@@ -77,7 +119,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConnectionWrite'
+              $ref: '#/components/schemas/Connection'
       responses:
         "200":
           description: It's ok
@@ -107,10 +149,37 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ConnectionRead'
+                  $ref: '#/components/schemas/Connection'
+    put:
+      summary: Update new connection
+      operationId: update Connection
+      tags:
+        - Connections
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        description: Connections obj
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connection'
+      responses:
+        "200":
+          description: It's ok
+          content:
+            text/plain:
+              schema:
+                type: string
 components:
   schemas:
-    UserRead:
+
+    User:
       type: object
       required:
         - uuid
@@ -125,18 +194,7 @@ components:
         surname:
           type: string
 
-    UserWrite:
-      type: object
-      required:
-        - name
-        - surname
-      properties:
-        name:
-          type: string
-        surname:
-          type: string
-
-    ConnectionRead:
+    Connection:
       type: object
       required:
         - uuid
@@ -146,17 +204,6 @@ components:
         uuid:
           type: string
           format: uuid
-        follower:
-          type: integer
-        followed:
-          type: integer
-
-    ConnectionWrite:
-      type: object
-      required:
-        - follower
-        - followed
-      properties:
         follower:
           type: integer
         followed:
