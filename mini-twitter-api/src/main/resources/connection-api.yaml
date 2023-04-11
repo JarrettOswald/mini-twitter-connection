@@ -27,7 +27,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserRead'
+                  $ref: '#/components/schemas/User'
 
   /users/{userId}:
     get:
@@ -48,7 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserRead'
+                $ref: '#/components/schemas/User'
 
 
   /connections:
@@ -65,7 +65,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ConnectionRead'
+                  $ref: '#/components/schemas/Connection'
     post:
       summary: Add new connection
       operationId: saveConnection
@@ -77,7 +77,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConnectionWrite'
+              $ref: '#/components/schemas/Connection'
       responses:
         "200":
           description: It's ok
@@ -107,10 +107,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ConnectionRead'
+                  $ref: '#/components/schemas/Connection'
 components:
   schemas:
-    UserRead:
+
+    User:
       type: object
       required:
         - uuid
@@ -125,18 +126,7 @@ components:
         surname:
           type: string
 
-    UserWrite:
-      type: object
-      required:
-        - name
-        - surname
-      properties:
-        name:
-          type: string
-        surname:
-          type: string
-
-    ConnectionRead:
+    Connection:
       type: object
       required:
         - uuid
@@ -146,17 +136,6 @@ components:
         uuid:
           type: string
           format: uuid
-        follower:
-          type: integer
-        followed:
-          type: integer
-
-    ConnectionWrite:
-      type: object
-      required:
-        - follower
-        - followed
-      properties:
         follower:
           type: integer
         followed:
