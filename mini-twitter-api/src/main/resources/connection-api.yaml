@@ -17,7 +17,7 @@ paths:
       summary: Find all users
       tags:
         - Connections
-      description: This is description
+      description: Find all users
       operationId: findAllUsers
       responses:
         "200":
@@ -91,6 +91,7 @@ paths:
                   $ref: '#/components/schemas/Connection'
 components:
   schemas:
+
     User:
       type: object
       required:
@@ -105,7 +106,7 @@ components:
     Connection:
       type: object
       required:
-        - followed
+        - follower
         - followed
       properties:
         follower:

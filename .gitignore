@@ -33,4 +33,5 @@ build/
 .vscode/
 
 # Project exclude paths
+/mini-twitter-db/target/
 /mini-twitter-api/target/
