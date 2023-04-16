@@ -1,13 +1,13 @@
 CREATE TABLE USERS
 (
-    id      UUID PRIMARY KEY,
+    id      UUID UNIQUE PRIMARY KEY,
     name    VARCHAR NOT NULL,
     surname VARCHAR NOT NULL
 );
 
 CREATE TABLE CONNECTIONS
 (
-    id       UUID PRIMARY KEY,
+    id       UUID UNIQUE PRIMARY KEY,
     follower INTEGER NOT NULL,
     followed INTEGER NOT NULL
 );
