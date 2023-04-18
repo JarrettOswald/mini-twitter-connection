@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import ru.korepanov.minitwitterservice.repositories.ConnectionsRepository
 import ru.korepanov.minitwitterservice.tables.pojos.Connections
-import ru.korepanov.minitwitterservice.tables.pojos.Users
 import java.util.*
 
 
@@ -30,7 +29,6 @@ class ConnectionController(val connectionsRepository: ConnectionsRepository) : C
 
     override fun getConnections(): ResponseEntity<List<Connection>> {
         logger.info("get all connections")
-
         val list: List<Connection> = connectionsRepository.findAll()
             .map { Connection(it.id, it.follower, it.followed) }
         return ResponseEntity(list, HttpStatusCode.valueOf(200))
@@ -38,7 +36,6 @@ class ConnectionController(val connectionsRepository: ConnectionsRepository) : C
 
     override fun saveConnection(connection: Connection): ResponseEntity<String> {
         logger.info("save connections $connection")
-
         connectionsRepository.insert(Connections(UUID.randomUUID(), connection.follower, connection.followed))
         return ResponseEntity("connection added", HttpStatusCode.valueOf(200))
     }

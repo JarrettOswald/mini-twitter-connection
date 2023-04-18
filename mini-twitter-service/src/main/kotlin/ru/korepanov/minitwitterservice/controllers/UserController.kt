@@ -5,10 +5,12 @@ import org.openapitools.model.User
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
 import ru.korepanov.minitwitterservice.repositories.UsersRepository
 import ru.korepanov.minitwitterservice.tables.pojos.Users
 import java.util.*
 
+@Controller
 class UserController(val usersRepository: UsersRepository) : UsersApi {
 
     private val logger = LoggerFactory.getLogger(javaClass)

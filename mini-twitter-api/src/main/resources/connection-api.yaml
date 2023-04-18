@@ -4,19 +4,17 @@ info:
   version: 0.0.1
   title: Connections
   description: The posts service
-servers:
-  - url: /connections/
 
 tags:
   - name: Connections
-
+  - name: Users
 paths:
 
   /users:
     get:
       summary: Find all users
       tags:
-        - Connections
+        - Users
       description: Find all users
       operationId: findAllUsers
       responses:
@@ -29,9 +27,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
     post:
-      summary: Save new user
+      summary: Add new user
       tags:
-        - User
+        - Users
       operationId: saveUser
       requestBody:
         required: true
@@ -53,7 +51,7 @@ paths:
     get:
       summary: Find user by userId
       tags:
-        - User
+        - Users
       operationId: getUserByUserId
       parameters:
         - in: path
@@ -72,7 +70,7 @@ paths:
     put:
       summary: Update user by userId
       tags:
-        - User
+        - Users
       operationId: updateUserByUserId
       parameters:
         - in: path
@@ -192,8 +190,10 @@ components:
           format: uuid
         name:
           type: string
+          example: Ivan
         surname:
           type: string
+          example: Drago
 
     Connection:
       type: object
@@ -206,6 +206,8 @@ components:
           type: string
           format: uuid
         follower:
-          type: integer
+          type: string
+          format: uuid
         followed:
-          type: integer
+          type: string
+          format: uuid

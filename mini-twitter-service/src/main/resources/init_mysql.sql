@@ -8,6 +8,6 @@ CREATE TABLE USERS
 CREATE TABLE CONNECTIONS
 (
     id       UUID UNIQUE PRIMARY KEY,
-    follower INTEGER NOT NULL,
-    followed INTEGER NOT NULL
+    follower UUID NOT NULL,
+    followed UUID NOT NULL
 );
