@@ -66,7 +66,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
     put:
       summary: Update user by userId
       tags:
@@ -129,10 +131,10 @@ paths:
               schema:
                 type: string
 
-  /connections/{userId}:
+  /connections/{userId}/follower:
     get:
-      summary: Get connection by userId
-      operationId: getConnectionByUserName
+      summary: Get follower by userId
+      operationId: getFollowerConnectionByUserName
       tags:
         - Connections
       parameters:
@@ -148,7 +150,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Connection'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+
+  /connections/{userId}/followed:
+    get:
+      summary: Get followed by userId
+      operationId: getFollowedConnectionByUserName
+      tags:
+        - Connections
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+
+  /connections/{userId}:
     put:
       summary: Update connection by userId
       tags:

@@ -16,21 +16,23 @@ import java.util.*
 class ConnectionController(val connectionsRepository: ConnectionsRepository) : ConnectionsApi {
 
     private val logger = LoggerFactory.getLogger(javaClass)
-    override fun getConnectionByUserName(userId: UUID): ResponseEntity<Connection> {
+    override fun getFollowedConnectionByUserName(userId: UUID): ResponseEntity<List<Connection>> {
         logger.info("get user by uuid:$userId")
-        val connections = connectionsRepository.fetchById(userId)
-        if (connections.size > 1) {
-            throw IllegalStateException("userId not unique")
-        }
-        val connection = connections[0]
-        val connectionModel = Connection(connection.id, connection.follower, connection.follower)
-        return ResponseEntity(connectionModel, HttpStatusCode.valueOf(200))
+        val connections = connectionsRepository.fetchByFollowed(userId)
+        val listFollowed = connections.map { Connection(it.id, it.follower, it.followed) }
+        return ResponseEntity(listFollowed, HttpStatusCode.valueOf(200))
+    }
+
+    override fun getFollowerConnectionByUserName(userId: UUID): ResponseEntity<List<Connection>> {
+        logger.info("get user by follower uuid:$userId")
+        val connections = connectionsRepository.fetchByFollower(userId)
+        val listFollower = connections.map { Connection(it.id, it.follower, it.followed) }
+        return ResponseEntity(listFollower, HttpStatusCode.valueOf(200))
     }
 
     override fun getConnections(): ResponseEntity<List<Connection>> {
         logger.info("get all connections")
-        val list: List<Connection> = connectionsRepository.findAll()
-            .map { Connection(it.id, it.follower, it.followed) }
+        val list: List<Connection> = connectionsRepository.findAll().map { Connection(it.id, it.follower, it.followed) }
         return ResponseEntity(list, HttpStatusCode.valueOf(200))
     }
 
