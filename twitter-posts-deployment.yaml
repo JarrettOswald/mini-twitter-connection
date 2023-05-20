@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-connection-deployment
+  labels:
+    app: twitter-connection
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: twitter-connection
+  template:
+    metadata:
+      labels:
+        app: twitter-connection
+    spec:
+      containers:
+        - name: twitter-connection
+          image: 192.168.0.110:1111/twitter-connection:latest
+          envFrom:
+            - configMapRef:
+                name: twitter-connection-configmap
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: twitter-connection-service
+spec:
+  type: NodePort
+  selector:
+    app: twitter-connection
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30301
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: twitter-connection-configmap
+data:
+  DATABASE_URI: "jdbc:postgresql://192.168.0.110:5000/postgres"
+  DATABASE_USERNAME: "postgres"
+  DATABASE_PASSWORD: "postgres"
+  DATABASE_DRIVER: "org.postgresql.Driver"
