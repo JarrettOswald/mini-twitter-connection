@@ -1,9 +1,24 @@
 spring:
   datasource:
-    url: '@db.url@'
-    username: '@db.username@'
-    password: '@db.password@'
-    driver-class-name: '@db.driver@'
+    url: ${DATABASE_URI:jdbc:tc:postgresql:14:///postgres?TC_TMPFS=/testtmpfs:rw&amp;TC_INITSCRIPT=file:${basedir}/src/main/resources/init_mysql.sql}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: ${DATABASE_DRIVER:org.testcontainers.jdbc.ContainerDatabaseDriver}
   jpa:
     hibernate:
       ddl-auto: none
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+  info:
+    java:
+      enabled: true
+    env:
+      enabled: true
+
+info:
+  app:
+    version: '@revision@'
