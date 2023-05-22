@@ -45,7 +45,7 @@ apiVersion: v1
 metadata:
   name: twitter-connection-configmap
 data:
-  DATABASE_URI: "jdbc:postgresql://192.168.0.110:5001/postgres"
+  DATABASE_URI: "jdbc:postgresql://192.168.0.110:6000/postgres"
   DATABASE_USERNAME: "postgres"
   DATABASE_PASSWORD: "postgres"
   DATABASE_DRIVER: "org.postgresql.Driver"
