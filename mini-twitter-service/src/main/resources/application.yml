@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URI:jdbc:tc:postgresql:14:///postgres?TC_TMPFS=/testtmpfs:rw&amp;TC_INITSCRIPT=file:${basedir}/src/main/resources/init_mysql.sql}
+    url: '@db.url@'
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: ${DATABASE_DRIVER:org.testcontainers.jdbc.ContainerDatabaseDriver}
