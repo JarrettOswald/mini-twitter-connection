@@ -24,6 +24,6 @@ info:
     version: '@revision@'
 
 
-spring-doc:
-  swagger-ui:
-    url: "http://192.168.0.110:30301"
+#spring-doc:
+#  swagger-ui:
+#    url: ${DATABASE_USERNAME:http://localhost:8080}
