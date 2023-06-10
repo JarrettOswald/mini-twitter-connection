@@ -1,9 +1,9 @@
 spring:
   datasource:
     url: '@db.url@'
-    username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
-    driver-class-name: ${DATABASE_DRIVER:org.testcontainers.jdbc.ContainerDatabaseDriver}
+    username: '@db.username@'
+    password: '@db.password@'
+    driver-class-name: '@db.driver@'
   jpa:
     hibernate:
       ddl-auto: none
