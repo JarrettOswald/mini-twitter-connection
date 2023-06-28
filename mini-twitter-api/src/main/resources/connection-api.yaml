@@ -134,7 +134,7 @@ paths:
   /connections/{userId}/follower:
     get:
       summary: Get follower by userId
-      operationId: getFollowerConnectionByUserName
+      operationId: getFollowerConnectionByUserId
       tags:
         - Connections
       parameters:
@@ -157,7 +157,7 @@ paths:
   /connections/{userId}/followed:
     get:
       summary: Get followed by userId
-      operationId: getFollowedConnectionByUserName
+      operationId: getFollowedConnectionByUserId
       tags:
         - Connections
       parameters:

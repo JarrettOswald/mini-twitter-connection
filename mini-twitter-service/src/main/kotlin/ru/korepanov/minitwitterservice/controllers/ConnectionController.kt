@@ -16,14 +16,14 @@ import java.util.*
 class ConnectionController(val connectionsRepository: ConnectionsRepository) : ConnectionsApi {
 
     private val logger = LoggerFactory.getLogger(javaClass)
-    override fun getFollowedConnectionByUserName(userId: UUID): ResponseEntity<List<Connection>> {
+    override fun getFollowedConnectionByUserId(userId: UUID): ResponseEntity<List<Connection>> {
         logger.info("get user by uuid:$userId")
         val connections = connectionsRepository.fetchByFollowed(userId)
         val listFollowed = connections.map { Connection(it.id, it.follower, it.followed) }
         return ResponseEntity(listFollowed, HttpStatus.OK)
     }
 
-    override fun getFollowerConnectionByUserName(userId: UUID): ResponseEntity<List<Connection>> {
+    override fun getFollowerConnectionByUserId(userId: UUID): ResponseEntity<List<Connection>> {
         logger.info("get user by follower uuid:$userId")
         val connections = connectionsRepository.fetchByFollower(userId)
         val listFollower = connections.map { Connection(it.id, it.follower, it.followed) }
@@ -47,4 +47,6 @@ class ConnectionController(val connectionsRepository: ConnectionsRepository) : C
         connectionsRepository.update(Connections(connection.uuid, connection.follower, connection.followed))
         return ResponseEntity("update connection:$connection", HttpStatus.OK)
     }
+
+
 }
